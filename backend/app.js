@@ -17,14 +17,17 @@ import authRouter from './routes/authRoutes.js';
 import cartRouter from './routes/cartRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 // Load environment variables
 dotenv.config({ path: path.join(__dirname, 'config/config.env') });
 
 // Create Express app
 const app = express();
+
+// Get __dirname in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set security HTTP headers
 app.use(helmet());
