@@ -41,7 +41,24 @@ process.on('SIGTERM', () => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+const HOST = process.env.HOST || '0.0.0.0';
+
+// Handle port in use error
+server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use. Trying a different port...`);
+        // Try a different port
+        server.listen(0, HOST, () => {
+            console.log(`✅ Server is running on port ${server.address().port} in ${process.env.NODE_ENV} mode (fallback port)`);
+        });
+    } else {
+        console.error('Server error:', error);
+        process.exit(1);
+    }
+});
+
+// Start the server
+server.listen(PORT, HOST, () => {
     console.log(`✅ Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
 });
 
