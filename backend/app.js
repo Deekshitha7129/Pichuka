@@ -125,12 +125,18 @@ app.use(errorHandler);
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
     logError('UNCAUGHT EXCEPTION! 💥 Shutting down...');
-    logError(err.name, err.message);
+    logError(`Name: ${err.name}`);
+    logError(`Message: ${err.message}`);
+    logError(`Stack: ${err.stack}`);
     
     // Close server & exit process
-    server.close(() => {
+    if (server) {
+        server.close(() => {
+            process.exit(1);
+        });
+    } else {
         process.exit(1);
-    });
+    }
 });
 
 // Initialize database connection
@@ -145,7 +151,9 @@ const server = app.listen(port, () => {
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
     logError('UNHANDLED REJECTION! 💥 Shutting down...');
-    logError(err.name, err.message);
+    logError(`Name: ${err.name}`);
+    logError(`Message: ${err.message}`);
+    logError(`Stack: ${err.stack}`);
     
     // Close server & exit process
     server.close(() => {
