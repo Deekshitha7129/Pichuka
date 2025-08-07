@@ -1,0 +1,157 @@
+.staff-login-container {
+  width: 400px;
+  max-width: 90vw;
+}
+
+.scrollable-container {
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sample-credentials {
+  background-color: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.credentials-title {
+  text-align: center;
+  color: #495057;
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.credentials-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.credential-item {
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.credential-item:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.credential-role {
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 4px;
+}
+
+.credential-details {
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.credentials-note {
+  text-align: center;
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 15px;
+  font-style: italic;
+}
+
+/* Credential Type Buttons */
+.credential-type-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.credential-type-btn {
+  flex: 1;
+  background-color: #ffffff;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 14px;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.credential-type-btn:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
+}
+
+.credential-type-btn.active {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.credential-type-btn .arrow {
+  font-size: 12px;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+/* Credentials Section with Slide Animation */
+.credentials-section {
+  overflow: hidden;
+  margin-bottom: 15px;
+  max-height: 400px;
+}
+
+.credentials-grid {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+  .staff-login-container {
+    width: 95vw;
+    padding: 20px;
+  }
+  
+  .credential-item {
+    font-size: 12px;
+    padding: 10px;
+  }
+  
+  .credentials-title {
+    font-size: 14px;
+  }
+}

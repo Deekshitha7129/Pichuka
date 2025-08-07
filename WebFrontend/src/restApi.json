@@ -1,0 +1,141 @@
+{
+    "data": [
+        {"ourQualities" : [
+            {
+                "id": 1,
+                "image": "./quality_food.svg",
+                "title": "QUALITY FOOD",
+                "description": "We believe in serving only the highest quality food, using fresh, locally sourced ingredients to create delicious and nutritious dishes from around the world."
+            },
+            {
+                "id": 2,
+                "image": "./super_taste.svg",
+                "title": "SUPER TASTE",
+                "description": "Our culinary team crafts each dish with passion and precision, ensuring an extraordinary taste experience that delights your senses with authentic flavors."
+            },
+            {
+                "id": 3,
+                "image": "./fast_delivery.svg",
+                "title": "FAST DELIVERY",
+                "description": "Enjoy our delicious multi-cuisine meals in the comfort of your home with our fast and reliable delivery service, bringing your favorites straight to your door."
+            }
+        ],
+        "dishes": [
+            {
+                "id": 1,
+                "image": "./dinner1.jpeg",
+                "title": "ROASTED LAMB RUMP",
+                "category": "Dinner"
+            },
+            {
+                "id": 2,
+                "image": "./dinner2.png",
+                "title": "CITRUS CURED SALMON",
+                "category": "Dinner"
+            },
+            {
+                "id": 3,
+                "image": "./breakfast1.png",
+                "title": "PAN SEARED SEA BASS",
+                "category": "Breakfast"
+            },
+            {
+                "id": 4,
+                "image": "./dinner3.png",
+                "title": "STUFFED STRAWBERRY",
+                "category": "Dinner"
+            },
+            {
+                "id": 5,
+                "image": "./lunch1.png",
+                "title": "BEEF BURGER MEAL",
+                "category": "Lunch"
+            },
+            {
+                "id": 6,
+                "image": "./dinner4.png",
+                "title": "MUSSELS SOUP",
+                "category": "Dinner"
+            },
+            {
+                "id": 7,
+                "image": "./dinner5.png",
+                "title": "ITALIAN SPAGHETTI",
+                "category": "Dinner"
+            },
+            {
+                "id": 8,
+                "image": "./dinner6.png",
+                "title": "GRILLED FISH",
+                "category": "Dinner"
+            }
+        ],
+        "team": [
+            {
+                "id": 4,
+                "image": "./Deekshitha Burugupalli.jpg",
+                "name": "DEEKSHITHA BURUGUPALLI",
+                "designation": "Founder & Head Chef"
+            },
+            {
+                "id": 1,
+                "image": "./team_member_4.png",
+                "name": "CHEF MARIA",
+                "designation": "Italian Cuisine Chef"
+            },
+            {
+                "id": 2,
+                "image": "./team_member_3.png",
+                "name": "CHEF RAJ",
+                "designation": "Indian Cuisine Chef"
+            },
+            {
+                "id": 3,
+                "image": "./team_member_2.png",
+                "name": "CHEF LUCAS",
+                "designation": "Continental Chef"
+            }
+        ],
+        "who_we_are": [
+            {
+                "id": 1,
+                "number": "1",
+                "title": "Multi-Cuisine Restaurant"
+            },
+            {
+                "id": 2,
+                "number": "4",
+                "title": "Expert Chefs"
+            },
+            {
+                "id": 3,
+                "number": "5",
+                "title": "Years Of Excellence"
+            },
+            {
+                "id": 4,
+                "number": "50+",
+                "title": "Global Dishes"
+            }
+        ],
+        "navbarLinks": [
+            {
+                "id": 1,
+                "title": "HOME",
+                "link": "heroSection"
+            },
+            {
+                "id": 2,
+                "title": "TEAM",
+                "link": "team"
+            },
+            {
+                "id": 3,
+                "title": "RESERVATION",
+                "link": "reservation"
+            }
+        ]
+    
+    } 
+    ]
+}

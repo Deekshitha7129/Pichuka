@@ -1,0 +1,29 @@
+{
+  "name": "pichuka-restaurant",
+  "version": "1.0.0",
+  "description": "Pichuka Multi-Cuisine Restaurant Booking System",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-client": "cd frontend && npm install",
+    "install-server": "cd backend && npm install",
+    "install-all": "npm install && npm run install-client && npm run install-server",
+    "build": "cd frontend && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-client && npm run build"
+  },
+  "keywords": [
+    "restaurant",
+    "booking",
+    "mern",
+    "node",
+    "react"
+  ],
+  "author": "Deekshitha",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.0",
+    "dotenv": "^17.2.1"
+  }
+}

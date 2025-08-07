@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: pichuka-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGO_URI
+        value: mongodb+srv://Deekshitha:Gg8050888878@cluster0.rnzupor.mongodb.net/RESTAURANT
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false  # Will be updated after frontend deployment
+    healthCheckPath: /api/health
+    plan: free
+    autoDeploy: true
