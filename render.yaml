@@ -9,7 +9,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 10000
+        value: 10000  # This is just a fallback, Render will override it
       - key: MONGO_URI
         value: mongodb+srv://Deekshitha:Gg8050888878@cluster0.rnzupor.mongodb.net/RESTAURANT
       - key: JWT_SECRET
