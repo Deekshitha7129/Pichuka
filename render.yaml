@@ -2,7 +2,8 @@ services:
   - type: web
     name: pichuka-backend
     env: node
-    buildCommand: cd backend && npm install
+    buildCommand: echo "Skipping build step - not needed for this backend"
+    installCommand: cd backend && npm install
     startCommand: cd backend && npm start
     envVars:
       - key: NODE_ENV
