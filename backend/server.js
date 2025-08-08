@@ -52,14 +52,9 @@ server.on('error', (error) => {
             console.log(`✅ Server is running on port ${server.address().port} in ${process.env.NODE_ENV} mode (fallback port)`);
         });
     } else {
-        console.error('Server error:', error);
+        console.error('Server error:', err);
         process.exit(1);
     }
-});
-
-// Start the server
-server.listen(PORT, HOST, () => {
-    console.log(`✅ Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
 });
 
 export { server };

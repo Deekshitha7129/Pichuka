@@ -30,10 +30,15 @@ const app = express();
 // Set security HTTP headers
 app.use(helmet());
 
-// Enable CORS
+// Configure CORS for production and development
 const allowedOrigins = process.env.FRONTEND_URL 
     ? process.env.FRONTEND_URL.split(',').map(origin => origin.trim())
     : ["http://localhost:5173", "http://localhost:5174"];
+
+// Trust first proxy in production
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+}
 
 app.use(
     cors({
@@ -41,13 +46,18 @@ app.use(
             // Allow requests with no origin (like mobile apps or curl requests)
             if (!origin) return callback(null, true);
             
-            if (allowedOrigins.indexOf(origin) === -1) {
-                const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-                return callback(new Error(msg), false);
+            if (allowedOrigins.some(allowedOrigin => 
+                origin === allowedOrigin || 
+                origin.startsWith(allowedOrigin.replace(/https?:\/\//, 'http://'))
+            )) {
+                return callback(null, true);
             }
-            return callback(null, true);
+            
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
         },
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
         credentials: true,
         allowedHeaders: ['Content-Type', 'Authorization'],
     })
@@ -112,11 +122,36 @@ app.get('/health', (req, res) => {
     });
 });
 
+// Root route - API documentation
+app.get('/', (req, res) => {
+    res.status(200).json({
+        status: 'success',
+        message: 'Pichuka Restaurant API is running',
+        environment: process.env.NODE_ENV || 'development',
+        timestamp: new Date().toISOString(),
+        documentation: 'https://github.com/Deekshitha7129/Pichuka',
+        endpoints: {
+            auth: {
+                login: 'POST /api/v1/auth/login',
+                register: 'POST /api/v1/auth/register',
+                logout: 'GET /api/v1/auth/logout',
+                me: 'GET /api/v1/auth/me'
+            },
+            reservations: 'GET/POST /api/v1/reservation',
+            cart: 'GET/POST/PUT/DELETE /api/v1/cart',
+            orders: 'GET/POST /api/v1/orders',
+            health: 'GET /health'
+        }
+    });
+});
+
 // Handle 404 - Not Found
 app.all('*', (req, res, next) => {
     res.status(404).json({
         status: 'fail',
-        message: `Can't find ${req.originalUrl} on this server!`
+        message: `Can't find ${req.originalUrl} on this server!`,
+        timestamp: new Date().toISOString(),
+        suggestion: 'Try visiting / for API documentation'
     });
 });
 
