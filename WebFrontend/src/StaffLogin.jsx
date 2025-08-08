@@ -32,10 +32,10 @@ const StaffLogin = () => {
             
             // Determine if this is a chef or other staff based on position
             const position = user.position || '';
-            const chefPositions = ['Chef', 'Head Chef', 'Sous Chef', 'Kitchen Manager'];
+            const chefPositions = ['Chef', 'Head Chef', 'Sous Chef', 'Kitchen Manager', 'Founder & Head Chef'];
             const staffPositions = ['Manager', 'Supervisor', 'Cashier', 'Waiter'];
             
-            if (chefPositions.includes(position) || position.toLowerCase().includes('chef')) {
+            if (chefPositions.some(chefPos => position.includes(chefPos)) || position.toLowerCase().includes('chef')) {
               // This is a chef
               localStorage.setItem("userRole", "Employee"); // Store role as Employee for backend compatibility
               localStorage.setItem("userPosition", position); // Store actual position
