@@ -7,7 +7,7 @@ export const API_ENDPOINTS = {
   LOGIN: `${API_BASE_URL}/auth/login`,
   
   // Reservation endpoints
-  RESERVATION_SEND: `${API_BASE_URL}/reservation/send`,
+  RESERVATION_SEND: `${API_BASE_URL}/reservations/send`,
   
   // Cart endpoints
   CART_ADD: `${API_BASE_URL}/cart/add`,
