@@ -30,36 +30,31 @@ const app = express();
 // Set security HTTP headers
 app.use(helmet());
 
-// Configure CORS
+// Configure CORS - Allowing all origins for now to resolve the immediate issue
 const corsOptions = {
-    origin: (origin, callback) => {
-        // In development, allow all origins
-        if (process.env.NODE_ENV !== 'production') {
-            return callback(null, true);
-        }
-
-        // In production, only allow specific origins
-        const allowedOrigins = process.env.FRONTEND_URL 
-            ? process.env.FRONTEND_URL.split(',').map(origin => origin.trim())
-            : [];
-            
+    origin: function (origin, callback) {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
         
-        if (allowedOrigins.some(allowedOrigin => 
-            origin === allowedOrigin || 
-            origin.startsWith(allowedOrigin.replace(/https?:\/\//, 'http://'))
-        )) {
-            return callback(null, true);
-        }
+        // List of allowed origins
+        const allowedOrigins = [
+            'https://pichuka-se6d.vercel.app',  // Your Vercel frontend
+            'http://localhost:5173',            // Local development
+            'http://localhost:5174'             // Alternative local port
+        ];
         
-        const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
-        console.error('CORS Error:', msg);
-        return callback(new Error(msg), false);
+        // Check if the origin is in the allowed list
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            return callback(null, true);
+        } else {
+            console.log('CORS blocked for origin:', origin);
+            return callback(new Error('Not allowed by CORS'));
+        }
     },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
 };
 
 // Trust first proxy in production
@@ -114,7 +109,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/v1/reservation', reservationRouter);
+app.use('/api/v1/reservations', reservationRouter);  // Changed from '/api/v1/reservation' to match frontend
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/cart', cartRouter);
 app.use('/api/v1/orders', orderRouter);
