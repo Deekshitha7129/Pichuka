@@ -30,38 +30,44 @@ const app = express();
 // Set security HTTP headers
 app.use(helmet());
 
-// Configure CORS for production and development
-const allowedOrigins = process.env.FRONTEND_URL 
-    ? process.env.FRONTEND_URL.split(',').map(origin => origin.trim())
-    : ["http://localhost:5173", "http://localhost:5174"];
+// Configure CORS
+const corsOptions = {
+    origin: (origin, callback) => {
+        // In development, allow all origins
+        if (process.env.NODE_ENV !== 'production') {
+            return callback(null, true);
+        }
+
+        // In production, only allow specific origins
+        const allowedOrigins = process.env.FRONTEND_URL 
+            ? process.env.FRONTEND_URL.split(',').map(origin => origin.trim())
+            : [];
+            
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.some(allowedOrigin => 
+            origin === allowedOrigin || 
+            origin.startsWith(allowedOrigin.replace(/https?:\/\//, 'http://'))
+        )) {
+            return callback(null, true);
+        }
+        
+        const msg = `The CORS policy for this site does not allow access from the specified Origin: ${origin}`;
+        console.error('CORS Error:', msg);
+        return callback(new Error(msg), false);
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
 // Trust first proxy in production
 if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1);
 }
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            // Allow requests with no origin (like mobile apps or curl requests)
-            if (!origin) return callback(null, true);
-            
-            if (allowedOrigins.some(allowedOrigin => 
-                origin === allowedOrigin || 
-                origin.startsWith(allowedOrigin.replace(/https?:\/\//, 'http://'))
-            )) {
-                return callback(null, true);
-            }
-            
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        },
-        credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-        credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization'],
-    })
-);
+app.use(cors(corsOptions));
 app.options('*', cors());
 
 // Development logging
