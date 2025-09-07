@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: pichuka-backend
+    env: node
+    buildCommand: echo "Skipping build step - not needed for this backend"
+    installCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000  # This is just a fallback, Render will override it
+      - key: MONGO_URI
+        value: mongodb+srv://Deekshitha:Gg8050888878@cluster0.rnzupor.mongodb.net/RESTAURANT
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false  # Will be updated after frontend deployment
+    healthCheckPath: /api/health
+    plan: free
+    autoDeploy: true
